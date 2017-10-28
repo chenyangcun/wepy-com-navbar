@@ -1,0 +1,81 @@
+<template>
+  <view class="swiper-tab">
+    <block  wx:for="{{tabs}}" wx:for-index="idx" wx:for-item="tabName" >
+      <view class="swiper-tab-list {{currentTab==idx ? 'on' : ''}}" data-current="{{idx}}" bindtap="swichNav">{{tabName}}</view>
+    </block>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class NavBar extends wepy.component {
+    data = {
+      // 页面配置
+      winWidth: 0,
+      winHeight: 0
+    }
+
+    props = {
+      tabs: {
+        type: Object,
+        default: []
+      },
+      currentTab: {
+        type: Number,
+        default: 0,
+        twoWay: true
+      }
+    }
+
+    onLoad() {
+      // 获取系统信息
+      wx.getSystemInfo({
+        success: function (res) {
+          this.winWidth = res.windowWidth
+          this.winHeight = res.windowHeight
+        }
+      })
+    }
+
+    methods = {
+      swichNav(e) {
+        // console.log('swichNav')
+        var that = this
+        if (this.data.currentTab === e.target.dataset.current) {
+          return false
+        } else {
+          this.currentTab = e.target.dataset.current
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+
+  .swiper-tab {
+    width: 100%;
+    border-bottom: 2rpx solid #CCCCCC;
+    text-align: center;
+    line-height: 80rpx;
+    background: #fff;
+  }
+
+  .swiper-tab-list {
+    font-size: 40rpx;
+    display: inline-block;
+    width: 33.33%;
+    color: #777777;
+    padding-top: 5rpx;
+    padding-bottom: 5rpx;
+  }
+
+  .on {
+    color: #049BFF;
+    border-bottom: 5rpx solid #049BFF;
+  }
+
+
+
+</style>
