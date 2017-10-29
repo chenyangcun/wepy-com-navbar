@@ -10,12 +10,7 @@
   import wepy from 'wepy'
 
   export default class NavBar extends wepy.component {
-    data = {
-      // 页面配置
-      winWidth: 0,
-      winHeight: 0
-    }
-
+  
     props = {
       tabs: {
         type: Object,
@@ -26,16 +21,6 @@
         default: 0,
         twoWay: true
       }
-    }
-
-    onLoad() {
-      // 获取系统信息
-      wx.getSystemInfo({
-        success: function (res) {
-          this.winWidth = res.windowWidth
-          this.winHeight = res.windowHeight
-        }
-      })
     }
 
     methods = {
@@ -75,7 +60,5 @@
     color: #049BFF;
     border-bottom: 5rpx solid #049BFF;
   }
-
-
 
 </style>
